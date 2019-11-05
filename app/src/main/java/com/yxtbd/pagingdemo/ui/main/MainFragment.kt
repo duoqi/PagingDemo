@@ -14,7 +14,8 @@ import com.yxtbd.pagingdemo.adapter.MainAdapter
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
-    private val TAG = "MainFragment"
+
+    private val mTag = "MainFragment"
 
     companion object {
         fun newInstance() = MainFragment()
@@ -39,7 +40,7 @@ class MainFragment : Fragment() {
         })
         recycler.adapter = mAdapter
 
-        Log.e(TAG, viewModel.getUsers().toString())
+        Log.e(mTag, viewModel.getUsers().toString())
     }
 
 }
