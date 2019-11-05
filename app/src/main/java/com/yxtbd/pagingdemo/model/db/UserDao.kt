@@ -1,11 +1,10 @@
 package com.yxtbd.pagingdemo.model.db
 
-import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.yxtbd.pagingdemo.model.bean.Student
+import com.yxtbd.pagingdemo.model.bean.User
 
 
 /**
@@ -15,11 +14,11 @@ import com.yxtbd.pagingdemo.model.bean.Student
  * date : 2019-09-04 21:17
  */
 @Dao
-interface StudentDao {
+interface UserDao {
 
-    @Query("select * from student order by id desc")
-    fun getAllStudents(): DataSource.Factory<Int, Student>
+    @Query("select * from user order by id desc")
+    fun getAllUsers(): List<User>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertStudents(vararg studends: Student)
+    fun insertUsers(vararg users: User)
 }

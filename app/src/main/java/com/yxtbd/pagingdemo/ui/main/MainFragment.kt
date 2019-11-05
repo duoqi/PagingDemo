@@ -1,6 +1,7 @@
 package com.yxtbd.pagingdemo.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.yxtbd.pagingdemo.adapter.MainAdapter
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
+    private val TAG = "MainFragment"
 
     companion object {
         fun newInstance() = MainFragment()
@@ -36,6 +38,8 @@ class MainFragment : Fragment() {
             mAdapter.submitList(it)
         })
         recycler.adapter = mAdapter
+
+        Log.e(TAG, viewModel.getUsers().toString())
     }
 
 }

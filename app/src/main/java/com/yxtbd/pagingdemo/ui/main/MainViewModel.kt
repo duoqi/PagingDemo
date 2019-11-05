@@ -4,16 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.yxtbd.pagingdemo.model.db.DbManager
 import com.yxtbd.pagingdemo.model.bean.Student
+import com.yxtbd.pagingdemo.model.bean.User
+import com.yxtbd.pagingdemo.model.db.AppDatabase
 import java.util.concurrent.Executors
 
 class MainViewModel : ViewModel() {
-    private val studentDao by lazy { DbManager.getInstance().mAppDatabase.getStudentDao() }
+    private val studentDao by lazy { AppDatabase.get().getStudentDao() }
+    private val userDao by lazy { AppDatabase.get().getUserDao() }
 
     init {
         insertData()
     }
+
     ////传入Room返回的DataSource.Factory
     var liveArray: LiveData<PagedList<Student>> =
         LivePagedListBuilder(
@@ -25,13 +28,18 @@ class MainViewModel : ViewModel() {
         ).build()
 
     private fun insertData() {
-        val lists = arrayListOf<Student>()
         for (i in 1..100) {
             val student = Student(null, "abc$i")
-            lists.add(student)
             Executors.newFixedThreadPool(20).execute { studentDao.insertStudents(student) }
+
+            val user = User(null, "user$i")
+            Executors.newFixedThreadPool(20).execute { userDao.insertUsers(user) }
         }
 
+    }
+
+    fun getUsers(): List<User> {
+        return userDao.getAllUsers()
     }
 
 }
