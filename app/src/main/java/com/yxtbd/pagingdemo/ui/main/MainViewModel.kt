@@ -30,10 +30,10 @@ class MainViewModel : ViewModel() {
     private fun insertData() {
         for (i in 1..100) {
             val student = Student(null, "abc$i")
-            Executors.newFixedThreadPool(20).execute { studentDao.insertStudents(student) }
+            Executors.newSingleThreadExecutor().execute { studentDao.insertStudents(student) }
 
             val user = User(null, "user$i")
-            Executors.newFixedThreadPool(20).execute { userDao.insertUsers(user) }
+            Executors.newSingleThreadExecutor().execute { userDao.insertUsers(user) }
         }
 
     }
